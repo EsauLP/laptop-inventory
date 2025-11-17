@@ -1,0 +1,2 @@
+# laptop-inventory
+Hardware Data
