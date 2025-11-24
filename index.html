@@ -350,13 +350,23 @@
             // If Google Script URL is configured, send data
             if (GOOGLE_SCRIPT_URL !== 'YOUR GOOGLE SCRIPT') {
                 try {
+                    // Send as array in the correct column order
+                    const dataArray = [
+                        formData.employeeName,
+                        formData.item,
+                        formData.make,
+                        formData.model,
+                        formData.serialNumber,
+                        formData.purchaseDate
+                    ];
+
                     await fetch(GOOGLE_SCRIPT_URL, {
                         method: 'POST',
                         mode: 'no-cors',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify(formData)
+                        body: JSON.stringify(dataArray)
                     });
 
                     showSuccess();
