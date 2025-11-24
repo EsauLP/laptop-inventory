@@ -382,7 +382,7 @@
         function loadStats() {
             const entries = JSON.parse(localStorage.getItem('laptopEntries') || '[]');
             const today = new Date().toDateString();
-            const todayEntries = entries.filter(e => new Date(e.timestamp).toDateString() === today);
+            const todayEntries = entries.filter(e => new Date(e.purchasedate).toDateString() === today);
             
             document.getElementById('todayCount').textContent = todayEntries.length;
             document.getElementById('totalCount').textContent = entries.length;
