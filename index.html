@@ -223,8 +223,8 @@
     <div class="container">
         <div class="header">
             <div class="app-icon"><img src="Logo.png" style="width: 300px; height: 100px;"></div>
-            <h1>Laptop Inventory</h1>
-            <p class="subtitle">Hardware Inventory</p>
+            <h1>Hardware Inventory</h1>
+            <p class="subtitle">Tracker for IT assets</p>
         </div>
 
         <div class="install-prompt" id="installPrompt">
@@ -244,6 +244,16 @@
             <div class="form-group">
                 <label for="employeeName">Employee Name <span class="required">*</span></label>
                 <input type="text" id="employeeName" name="employeeName" required autocomplete="name">
+            </div>
+
+            <div class="form-group">
+                <label for="item">Location <span class="required">*</span></label>
+                <select id="location" name="location" required>
+                    <option value="">Select work location...</option>
+                    <option value="Office">Office</option>
+                    <option value="Remote">Remote</option>
+                    <option value="Hybrid">Hybrid</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -337,6 +347,7 @@
             
             const formData = {
                 employeeName: document.getElementById('employeeName').value,
+                location: document.getElementById('location').value,
                 item: document.getElementById('item').value,
                 make: document.getElementById('make').value,
                 model: document.getElementById('model').value,
@@ -353,6 +364,7 @@
                     // Send as array in the correct column order
                     const dataArray = [
                         formData.employeeName,
+                        formData.location,
                         formData.item,
                         formData.make,
                         formData.model,
@@ -409,7 +421,7 @@
             // Create CSV
             const headers = 'Employee Name,Item,Make,Model,Serial Number,Purchase Date\n';
             const rows = entries.map(entry => 
-                `"${entry.employeeName}","${entry.item}","${entry.make}","${entry.model}","${entry.serialNumber}","${entry.purchaseDate}"`
+                `"${entry.employeeName}","${entry.location}","${entry.item}","${entry.make}","${entry.model}","${entry.serialNumber}","${entry.purchaseDate}"`
             ).join('\n');
             
             const csv = headers + rows;
