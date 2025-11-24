@@ -247,38 +247,47 @@
             </div>
 
             <div class="form-group">
-                <label for="serialNumber">Serial Number <span class="required">*</span></label>
-                <input type="text" id="serialNumber" name="serialNumber" required autocomplete="off">
+                <label for="item">Item <span class="required">*</span></label>
+                <select id="item" name="item" required>
+                    <option value="">Select device type...</option>
+                    <option value="Laptop">Laptop</option>
+                    <option value="Headset">Headset</option>
+                    <option value="Monitor">Monitor</option>
+                    <option value="Mouse">Mouse</option>
+                    <option value="Keyboard">Keyboard</option>
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="make">Make <span class="required">*</span></label>
                 <select id="make" name="make" required>
                     <option value="">Select manufacturer...</option>
-                    <option value="Dell">Dell</option>
-                    <option value="HP">HP</option>
                     <option value="Lenovo">Lenovo</option>
+                    <option value="HP">HP</option>
                     <option value="Apple">Apple</option>
-                    <option value="Microsoft">Microsoft</option>
-                    <option value="ASUS">ASUS</option>
-                    <option value="Acer">Acer</option>
-                    <option value="Other">Other</option>
+                    <option value="Jabra">Jabra</option>
+                </select>
+            </div>
+
+             <div class="form-group">
+                <label for="model">Model <span class="required">*</span></label>
+                <select id="model" name="model" required>
+                    <option value="">Select model...</option>
+                    <option value="15-fc0xxx">15-fc0xxx</option>
+                    <option value="83K1">83K1</option>
+                    <option value="82XQ">82XQ</option>
+                    <option value="Macbook Air M2">Macbook Air M2</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="model">Model <span class="required">*</span></label>
-                <input type="text" id="model" name="model" required autocomplete="off">
+                <label for="serialNumber">Serial Number <span class="required">*</span></label>
+                <input type="text" id="serialNumber" name="serialNumber" required autocomplete="off">
             </div>
 
             <div class="form-group">
-                <label for="cost">Cost <span class="required">*</span></label>
-                <input type="number" id="cost" name="cost" step="0.01" min="0" required placeholder="0.00" inputmode="decimal">
-            </div>
-
-            <div class="form-group">
-                <label for="warrantyExpire">Warranty Expire Date <span class="required">*</span></label>
-                <input type="date" id="warrantyExpire" name="warrantyExpire" required>
+                <label for="purchaseDate">Purchase Date <span class="required">*</span></label>
+                <input type="date" id="purchaseDate" name="purchaseDate" required>
             </div>
 
             <div class="button-group">
@@ -328,19 +337,18 @@
             
             const formData = {
                 employeeName: document.getElementById('employeeName').value,
-                serialNumber: document.getElementById('serialNumber').value,
+                item: document.getElementById('item').value,
                 make: document.getElementById('make').value,
                 model: document.getElementById('model').value,
-                cost: document.getElementById('cost').value,
-                warrantyExpire: document.getElementById('warrantyExpire').value,
-                timestamp: new Date().toISOString()
+                serialNumber: document.getElementById('serialNumber').value,
+                purchaseDate: document.getElementById('purchaseDate').value
             };
 
             // Save locally
             saveToLocal(formData);
 
             // If Google Script URL is configured, send data
-            if (GOOGLE_SCRIPT_URL !== 'YOUR_SCRIPT_URL') {
+            if (GOOGLE_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbzQ4Y80UosaL6pSBtjrjuAaHyMqn-evnwcWFD1RJ5IvHAsb17PXY09oLyu7xcPxUcn_/exec') {
                 try {
                     await fetch(GOOGLE_SCRIPT_URL, {
                         method: 'POST',
@@ -389,9 +397,9 @@
             }
 
             // Create CSV
-            const headers = 'Employee Name,Serial Number,Make,Model,Cost,Warranty Expire Date,Timestamp\n';
+            const headers = 'Employee Name,Item,Make,Model,Serial Number,Purchase Date\n';
             const rows = entries.map(entry => 
-                `"${entry.employeeName}","${entry.serialNumber}","${entry.make}","${entry.model}","${entry.cost}","${entry.warrantyExpire}","${entry.timestamp}"`
+                `"${entry.employeeName}","${entry.item}","${entry.make}","${entry.model}","${entry.serialNumber}","${entry.purchaseDate}"`
             ).join('\n');
             
             const csv = headers + rows;
