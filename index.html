@@ -348,7 +348,7 @@
             saveToLocal(formData);
 
             // If Google Script URL is configured, send data
-            if (GOOGLE_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbzAGzObkbsfNV6Ev38VUVpIs01kG7jDqSSIqkp2DnsqVIVXZrW_dHtX4NbKqd90qja9ew/exec') {
+            if (GOOGLE_SCRIPT_URL !== 'YOUR GOOGLE SCRIPT') {
                 try {
                     // Send as array in the correct column order
                     const dataArray = [
@@ -392,7 +392,7 @@
         function loadStats() {
             const entries = JSON.parse(localStorage.getItem('laptopEntries') || '[]');
             const today = new Date().toDateString();
-            const todayEntries = entries.filter(e => new Date(e.purchasedate).toDateString() === today);
+            const todayEntries = entries.filter(e => new Date(e.purchaseDate).toDateString() === today);
             
             document.getElementById('todayCount').textContent = todayEntries.length;
             document.getElementById('totalCount').textContent = entries.length;
